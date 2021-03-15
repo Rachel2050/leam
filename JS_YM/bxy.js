@@ -77,7 +77,7 @@ function signModule(res) {
   
   if (res.signModule.todaySignFlag) {
     $bxy.notify("高济百姓缘", "今日已签到", "");
-    return; 
+    //return; 
   }
 
 
@@ -88,7 +88,7 @@ function signModule(res) {
         "userId": `${userId}`,
         "taskId": `${res.signModule.taskId}`
   }
-
+console.log(everyDaySign.body);
   $bxy.post(everyDaySign, function(error, response, data) {
 
       if (error) {
