@@ -75,13 +75,13 @@ function QueryJDUserInfo(timeout = 0) {
       }
       $.get(url, (err, resp, data) => {
         try {
-          console.log(data);
+          console.log(JSON.stringify(data));
           data = JSON.parse(data);
           if (data.retcode === 13) {
             merge.enabled = false
             return
           }
-          console.log(data);
+          //console.log(data);
           merge.nickname = data.base.nickname;
         } catch (e) {
           $.logErr(e, resp);
