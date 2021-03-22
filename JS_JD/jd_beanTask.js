@@ -23,7 +23,8 @@ const JD_API_HOST = `https://api.m.jd.com/client.action`;
     $.msg($.name, '【提示】请先获取cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/', {"open-url": "https://bean.m.jd.com/"});
     return;
   }
-  for (let i = 0; i < cookiesArr.length; i++) {
+  // for (let i = 0; i < cookiesArr.length; i++) {
+  for (let i = 0; i < 1; i++) {
     cookie = cookiesArr[i];
     if (cookie) {
       if (i) console.log(`\n***************开始京东账号${i + 1}***************`)
@@ -75,13 +76,13 @@ function QueryJDUserInfo(timeout = 0) {
       }
       $.get(url, (err, resp, data) => {
         try {
-          console.log(JSON.stringify(data));
+          
           data = JSON.parse(data);
           if (data.retcode === 13) {
             merge.enabled = false
             return
           }
-          //console.log(data);
+
           merge.nickname = data.base.nickname;
         } catch (e) {
           $.logErr(e, resp);
@@ -176,7 +177,7 @@ function interact_template_getHomeData(timeout = 0) {
         try {
           if (printDetail) console.log(data);
           data = JSON.parse(data);
-          console.log(data);
+          console.log(JSON.stringify(data));
           return
           if (data.data.bizCode !== 0) {
             console.log(data.data.bizMsg);
