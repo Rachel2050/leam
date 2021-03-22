@@ -204,7 +204,7 @@ function interact_template_getHomeData(timeout = 0) {
             // }
             if (data.data.taskInfos[i].status === 1) {
                 console.log(`5-----------------5`);
-                await harmony_collectScore(data.data.taskInfos[i].subTaskVOS[0].taskToken,data.data.taskInfos[i].taskType);
+                await harmony_collectScore(data.data.taskInfos[i].subTaskVOS[0].taskToken,1);
             }else {
               console.log(`*******************`);
             }
@@ -228,7 +228,7 @@ function harmony_collectScore(taskToken,actionType,timeout = 0) {
   console.log(taskToken)
   console.log(actionType)
 
-  return
+  // return
   return new Promise((resolve) => {
     setTimeout( ()=>{
       let url = {
@@ -237,11 +237,11 @@ function harmony_collectScore(taskToken,actionType,timeout = 0) {
           'Origin' : `https://h5.m.jd.com`,
           'Cookie' : cookie,
           'Connection' : `keep-alive`,
-          'Accept' : `application/json, text/plain, */*`,
-          'Referer' : `https://h5.m.jd.com/babelDiy/Zeus/2WBcKYkn8viyxv7MoKKgfzmu7Dss/index.html`,//?inviteId=P225KkcRx4b8lbWJU72wvZZcwCjVXmYaS5jQ P225KkcRx4b8lbWJU72wvZZcwCjVXmYaS5jQ?inviteId=${shareCode}
+          "Accept": "*/*",
           'Host' : `api.m.jd.com`,
           'Accept-Encoding' : `gzip, deflate, br`,
-          'Accept-Language' : `zh-cn`
+          "Accept-Language": "zh-Hans-US;q=1, en-US;q=0.9, zh-Hant-US;q=0.8",
+          "User-Agent": `JD4iPhone/167169 (iPhone; iOS 13.4.1; Scale/3.00)`
         },
         body : `area=1_72_55663_0&body={"actionType":"${actionType}","taskToken":"${taskToken}","&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9%2C1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn%2BWJESU/2181NVn2bRzdsgHtdYHn%2Bb4xF6q%2B/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=11&screen=750%2A1334&sign=09fa3ca1626c1d8c067ea763f31c8268&st=1616330805127&sv=111&uts=0f31TVRjBSvniHyqoNcU8M4prYkXoXcvTEDPa1t1k5R8yhpaNubQznzqAY89TwN/VG/B2uJRTQOCbcXBb54PO8aNEItTozwD5gIHPHt/gFoat7lXUS/pQDp0fHySzxzx7Up5b9MQmrvJV%2B6%2B5eHWMMCLMBRNVpNaj4LhOfAAtFu48qGMFk791dt3SCtAlCCfYZtKm8B4fPIllSd/h839NA%3D%3D&uuid=hjudwgohxzVu96krv/T6Hg%3D%3D&wifiBssid=8b6538c87651072c4219343f91d578ed`
       }
