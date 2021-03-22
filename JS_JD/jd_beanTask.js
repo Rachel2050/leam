@@ -190,6 +190,8 @@ function interact_template_getHomeData(timeout = 0) {
             console.log("\n" + data.data.taskInfos[i].taskType + '-' + data.data.taskInfos[i].taskName  + '-' + (data.data.taskInfos[i].status === 1 ? `已完成${data.data.taskInfos[i].times}-未完成${data.data.taskInfos[i].maxTimes}` : "全部已完成"))
             
             console.log(data.data.taskInfos[i].taskType);
+            console.log(data.data.taskInfos[i].taskType);
+
             if ([0,15].includes(data.data.taskInfos[i].taskType)) {
               console.log(`5-----------------5`);
               if (data.data.taskInfos[i].status === 1) {
@@ -197,6 +199,8 @@ function interact_template_getHomeData(timeout = 0) {
                 await harmony_collectScore(data.data.taskInfos[i].subTaskVOS[0].taskToken,data.data.taskInfos[i].taskType);
               }
               continue
+            }else {
+              console.log(`*******************`);
             }
           }
           
