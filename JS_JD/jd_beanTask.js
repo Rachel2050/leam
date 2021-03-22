@@ -7,7 +7,7 @@ author：yangtingxiao
 github： https://github.com/yangtingxiao
  */
 const $ = new Env('领京豆');
-
+const printDetail = false;        //是否显示出参详情
 let merge = {}
 
 
