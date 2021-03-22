@@ -169,9 +169,7 @@ function interact_template_getHomeData(timeout = 0) {
           'Origin' : `https://h5.m.jd.com`
           
         },
-          body : `body={}&client=wh5&clientVersion=1.0.0`
-
-       // body : `area=1_72_55663_0&body=%7B%7D&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9%2C1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn%2BWJESU/2181NVn2bRzdsgHtdYHn%2Bb4xF6q%2B/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=11&screen=750%2A1334&sign=3066a9f64f1a0795de5cd83da35621b0&st=1616330298364&sv=121&uts=0f31TVRjBSvniHyqoNcU8M4prYkXoXcvTEDPa1t1k5R8yhpaNubQznzqAY89TwN/VG/B2uJRTQOCbcXBb54PO8aNEItTozwD5gIHPHt/gFoat7lXUS/pQDp0fHySzxzx7Up5b9MQmrvJV%2B6%2B5eHWMMCLMBRNVpNaj4LhOfAAtFu48qGMFk791dt3SCtAlCCfYZtKm8B4fPIllSd/h839NA%3D%3D&uuid=hjudwgohxzVu96krv/T6Hg%3D%3D&wifiBssid=8b6538c87651072c4219343f91d578ed`
+        body : `area=1_72_55663_0&body=%7B%7D&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9%2C1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn%2BWJESU/2181NVn2bRzdsgHtdYHn%2Bb4xF6q%2B/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=11&screen=750%2A1334&sign=3066a9f64f1a0795de5cd83da35621b0&st=1616330298364&sv=121&uts=0f31TVRjBSvniHyqoNcU8M4prYkXoXcvTEDPa1t1k5R8yhpaNubQznzqAY89TwN/VG/B2uJRTQOCbcXBb54PO8aNEItTozwD5gIHPHt/gFoat7lXUS/pQDp0fHySzxzx7Up5b9MQmrvJV%2B6%2B5eHWMMCLMBRNVpNaj4LhOfAAtFu48qGMFk791dt3SCtAlCCfYZtKm8B4fPIllSd/h839NA%3D%3D&uuid=hjudwgohxzVu96krv/T6Hg%3D%3D&wifiBssid=8b6538c87651072c4219343f91d578ed`
       }
 
       $.post(url, async (err, resp, data) => {
@@ -227,7 +225,8 @@ function harmony_collectScore(taskToken,actionType,timeout = 6000) {
           "Accept-Language": "zh-Hans-US;q=1, en-US;q=0.9, zh-Hant-US;q=0.8",
           "User-Agent": `JD4iPhone/167169 (iPhone; iOS 13.4.1; Scale/3.00)`
         },
-        body : `body={"actionType":"${actionType}","taskToken":"${taskToken}"}&client=wh5&clientVersion=1.0.0`
+        // body : `body={"actionType":"${actionType}","taskToken":"${taskToken}"}&client=wh5&clientVersion=1.0.0`
+        body : `area=1_72_55663_0&body={"actionType":0,"taskToken":"${taskToken}"}&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9,1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn+WJESU/2181NVn2bRzdsgHtdYHn+b4xF6q+/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=11&screen=750*1334&sign=d4f4ffe8e922db8a813a1152e0a59997&st=1616403027731&sv=100&uts=0f31TVRjBSvniHyqoNcU8M4prYkXoXcvgh6PMDKM078C40+lbb50LeER7BWix8wBgqH0AV5Og2Fmb271I/IwgjnL31YYFSRr1FWQadj9d6GpPvAmT9GUxuCayDIFYdufkBUoUMBdnmcAeSC0leJUBkIY4rP9k8UsXPnveCj3XolGtR8dDJ5D7HXLnIia7ls9bbPb2vsAixoxG/HdwEt9GQ==&uuid=hjudwgohxzVu96krv/T6Hg==&wifiBssid=8b6538c87651072c4219343f91d578ed`
       }
       //console.log(url.body)
 
