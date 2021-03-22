@@ -75,6 +75,7 @@ function QueryJDUserInfo(timeout = 0) {
       }
       $.get(url, (err, resp, data) => {
         try {
+          console.log(data);
           data = JSON.parse(data);
           if (data.retcode === 13) {
             merge.enabled = false
