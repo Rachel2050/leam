@@ -80,6 +80,7 @@ function QueryJDUserInfo(timeout = 0) {
             merge.enabled = false
             return
           }
+          console.log(data);
           merge.nickname = data.base.nickname;
         } catch (e) {
           $.logErr(e, resp);
