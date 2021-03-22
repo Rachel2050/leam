@@ -227,17 +227,18 @@ function harmony_collectScore(taskToken,actionType,timeout = 6000) {
         },
         body : `area=1_72_55663_0&body={"actionType":"${actionType}","taskToken":"${taskToken}","&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9%2C1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn%2BWJESU/2181NVn2bRzdsgHtdYHn%2Bb4xF6q%2B/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=11&screen=750%2A1334&sign=09fa3ca1626c1d8c067ea763f31c8268&st=1616330805127&sv=111&uts=0f31TVRjBSvniHyqoNcU8M4prYkXoXcvTEDPa1t1k5R8yhpaNubQznzqAY89TwN/VG/B2uJRTQOCbcXBb54PO8aNEItTozwD5gIHPHt/gFoat7lXUS/pQDp0fHySzxzx7Up5b9MQmrvJV%2B6%2B5eHWMMCLMBRNVpNaj4LhOfAAtFu48qGMFk791dt3SCtAlCCfYZtKm8B4fPIllSd/h839NA%3D%3D&uuid=hjudwgohxzVu96krv/T6Hg%3D%3D&wifiBssid=8b6538c87651072c4219343f91d578ed`
       }
-      console.log(url.body)
+      //console.log(url.body)
 
       $.post(url, async (err, resp, data) => {
         try {
           if (printDetail) console.log(data);
+          console.log(JSON.stringify(data));;
           data = JSON.parse(data);
-          console.log(data.data)
+          // console.log(data.data)
           // console.log(data.data.bizMsg)
-          if (data.data.times < data.data.maxTimes) {
-            await harmony_collectScore(taskToken,actionType,browseTime)
-          }
+          // if (data.data.times < data.data.maxTimes) {
+          //   await harmony_collectScore(taskToken,actionType,browseTime)
+          // }
         } catch (e) {
           $.logErr(e, resp);
         } finally {
