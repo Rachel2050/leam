@@ -9,7 +9,7 @@ github： https://github.com/yangtingxiao
 const $ = new Env('领京豆');
 const printDetail = false;        //是否显示出参详情
 let merge = {}
-
+let browseTime = 6
 
 
 //IOS等用户直接用NobyDa的jd cookie
@@ -175,76 +175,29 @@ function interact_template_getHomeData(timeout = 0) {
 
       $.post(url, async (err, resp, data) => {
         try {
-          if (printDetail) console.log(data);
+          if (printDetail) console.log(JSON.stringify(data));;
           data = JSON.parse(data);
-          console.log(JSON.stringify(data));
-          return
+          
           if (data.data.bizCode !== 0) {
             console.log(data.data.bizMsg);
             merge.jdBeans.fail++;
             merge.jdBeans.notify = `${data.data.bizMsg}`;
             return
           }
-          scorePerLottery = data.data.result.userInfo.scorePerLottery||data.data.result.userInfo.lotteryMinusScore
-          if (data.data.result.raiseInfo&&data.data.result.raiseInfo.levelList) scorePerLottery = data.data.result.raiseInfo.levelList[data.data.result.raiseInfo.scoreLevel];
-          //console.log(scorePerLottery)
-          for (let i = 0;i < data.data.result.taskVos.length;i ++) {
-            console.log("\n" + data.data.result.taskVos[i].taskType + '-' + data.data.result.taskVos[i].taskName  + '-' + (data.data.result.taskVos[i].status === 1 ? `已完成${data.data.result.taskVos[i].times}-未完成${data.data.result.taskVos[i].maxTimes}` : "全部已完成"))
-            //签到
-            if (data.data.result.taskVos[i].status === 3) {
-              console.log('开始抽奖')
-              await interact_template_getLotteryResult(data.data.result.taskVos[i].taskId);
-              continue;
-            }
-            if ([0,13].includes(data.data.result.taskVos[i].taskType)) {
-              if (data.data.result.taskVos[i].status === 1) {
-                await harmony_collectScore(data.data.result.taskVos[i].simpleRecordInfoVo.taskToken,data.data.result.taskVos[i].taskId);
+
+
+          for (let i = 0;i < data.data.taskInfos.length;i ++) {
+            console.log("\n" + data.data.taskInfos[i].taskType + '-' + data.data.taskInfos[i].taskName  + '-' + (data.data.taskInfos[i].status === 1 ? `已完成${data.data.taskInfos[i].times}-未完成${data.data.taskInfos[i].maxTimes}` : "全部已完成"))
+            
+
+            if ([0,15].includes(data.data.taskInfos[i].taskType)) {
+              if (data.data.taskInfos[i].status === 1) {
+                await harmony_collectScore(data.data.taskInfos[i].subTaskVOS[0].taskToken,data.data.taskInfos[i].taskType);
               }
               continue
-            }
-            if ([14,6].includes(data.data.result.taskVos[i].taskType)) {
-              //console.log(data.data.result.taskVos[i].assistTaskDetailVo.taskToken)
-              if (cookiesArr.indexOf(cookie) === 0) {
-                shareCodeArr[appIdArr.indexOf(appId)] = data.data.result.taskVos[i].assistTaskDetailVo.taskToken
-              }
-              if (shareCode) await harmony_collectScore(shareCode,data.data.result.taskVos[i].taskId);
-              for (let j = 0;j <(data.data.result.userInfo.lotteryNum||0);j++) {
-                if (appId === "1EFRTxQ") {
-                  await ts_smashGoldenEggs()
-                }  else {
-                  await interact_template_getLotteryResult(data.data.result.taskVos[i].taskId);
-                }
-              }
-              continue
-            }
-            let list = data.data.result.taskVos[i].productInfoVos || data.data.result.taskVos[i].followShopVo || data.data.result.taskVos[i].shoppingActivityVos || data.data.result.taskVos[i].browseShopVo
-            if (data.data.result.taskVos[i].subTitleName.match(/(\d+)(s)/)) {
-              browseTime = parseInt(data.data.result.taskVos[i].subTitleName.match(/(\d+)(s)/)[0])
-            }
-            for (let k = data.data.result.taskVos[i].times; k < data.data.result.taskVos[i].maxTimes; k++) {
-              for (let j in list) {
-                if (list[j].status === 1) {
-                  //console.log(list[j].simpleRecordInfoVo||list[j].assistTaskDetailVo)
-                  console.log("\n" + (list[j].title || list[j].shopName||list[j].skuName))
-                  //console.log(list[j].itemId)
-                  if (list[j].itemId) {
-                    await harmony_collectScore(list[j].taskToken,data.data.result.taskVos[i].taskId,list[j].itemId,1);
-                    if (k === data.data.result.taskVos[i].maxTimes - 1) await interact_template_getLotteryResult(data.data.result.taskVos[i].taskId);
-                  } else {
-                    await harmony_collectScore(list[j].taskToken,data.data.result.taskVos[i].taskId)
-                  }
-                  list[j].status = 2;
-                  break;
-                } else {
-                  continue;
-                }
-              }
             }
           }
-          if (scorePerLottery) await interact_template_getLotteryResult();
-          //for (let j = 0;j <(data.data.result.userInfo.lotteryNum||0 && appId === "1EFRTxQ");j++) {
-          //    await ts_smashGoldenEggs()
-          //}
+          
         } catch (e) {
           $.logErr(e, resp);
         } finally {
@@ -257,7 +210,48 @@ function interact_template_getHomeData(timeout = 0) {
 
 
 
+//做任务
+function harmony_collectScore(taskToken,actionType,timeout = 0) {
 
+  console.log(taskToken)
+  console.log(actionType)
+
+  return
+  return new Promise((resolve) => {
+    setTimeout( ()=>{
+      let url = {
+        url : `${JD_API_HOST}?functionId=beanTaskList`,
+        headers : {
+          'Origin' : `https://h5.m.jd.com`,
+          'Cookie' : cookie,
+          'Connection' : `keep-alive`,
+          'Accept' : `application/json, text/plain, */*`,
+          'Referer' : `https://h5.m.jd.com/babelDiy/Zeus/2WBcKYkn8viyxv7MoKKgfzmu7Dss/index.html`,//?inviteId=P225KkcRx4b8lbWJU72wvZZcwCjVXmYaS5jQ P225KkcRx4b8lbWJU72wvZZcwCjVXmYaS5jQ?inviteId=${shareCode}
+          'Host' : `api.m.jd.com`,
+          'Accept-Encoding' : `gzip, deflate, br`,
+          'Accept-Language' : `zh-cn`
+        },
+        body : `area=1_72_55663_0&body={"actionType":"${actionType}","taskToken":"${taskToken}","&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9%2C1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn%2BWJESU/2181NVn2bRzdsgHtdYHn%2Bb4xF6q%2B/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=11&screen=750%2A1334&sign=09fa3ca1626c1d8c067ea763f31c8268&st=1616330805127&sv=111&uts=0f31TVRjBSvniHyqoNcU8M4prYkXoXcvTEDPa1t1k5R8yhpaNubQznzqAY89TwN/VG/B2uJRTQOCbcXBb54PO8aNEItTozwD5gIHPHt/gFoat7lXUS/pQDp0fHySzxzx7Up5b9MQmrvJV%2B6%2B5eHWMMCLMBRNVpNaj4LhOfAAtFu48qGMFk791dt3SCtAlCCfYZtKm8B4fPIllSd/h839NA%3D%3D&uuid=hjudwgohxzVu96krv/T6Hg%3D%3D&wifiBssid=8b6538c87651072c4219343f91d578ed`
+      }
+      //console.log(url.body)
+      //if (appId === "1EFRTxQ") url.body += "&appid=golden-egg"
+      $.post(url, async (err, resp, data) => {
+        try {
+          if (printDetail) console.log(data);
+          data = JSON.parse(data);
+          console.log(data.data.bizMsg)
+          if (data.data.bizMsg === "任务领取成功") {
+            await harmony_collectScore(taskToken,actionType,parseInt(browseTime) * 1000)
+          }
+        } catch (e) {
+          $.logErr(e, resp);
+        } finally {
+          resolve()
+        }
+      })
+    },timeout)
+  })
+}
 
 
 
