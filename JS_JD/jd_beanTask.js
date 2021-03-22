@@ -9,7 +9,7 @@ github： https://github.com/yangtingxiao
 const $ = new Env('领京豆');
 const printDetail = false;        //是否显示出参详情
 let merge = {}
-let browseTime = 6
+let browseTime = 6000
 
 
 //IOS等用户直接用NobyDa的jd cookie
@@ -203,10 +203,7 @@ function interact_template_getHomeData(timeout = 0) {
             //   console.log(`*******************`);
             // }
             if (data.data.taskInfos[i].status === 1) {
-                console.log(`5-----------------5`);
-                await harmony_collectScore(data.data.taskInfos[i].subTaskVOS[0].taskToken,1);
-            }else {
-              console.log(`*******************`);
+                await harmony_collectScore(data.data.taskInfos[i].subTaskVOS[0].taskToken,0);
             }
           }
           
@@ -223,10 +220,9 @@ function interact_template_getHomeData(timeout = 0) {
 
 
 //做任务
-function harmony_collectScore(taskToken,actionType,timeout = 0) {
-  console.log(`6-----------------6`);
+function harmony_collectScore(taskToken,actionType,timeout = 6000) {
+ 
   console.log(taskToken)
-  console.log(actionType)
 
   // return
   return new Promise((resolve) => {
@@ -252,8 +248,8 @@ function harmony_collectScore(taskToken,actionType,timeout = 0) {
           if (printDetail) console.log(data);
           data = JSON.parse(data);
           console.log(data.data.bizMsg)
-          if (data.data.bizMsg === "任务领取成功") {
-            await harmony_collectScore(taskToken,actionType,parseInt(browseTime) * 1000)
+          if (data.data.times < data.data.maxTimes) {
+            await harmony_collectScore(taskToken,actionType,browseTime)
           }
         } catch (e) {
           $.logErr(e, resp);
