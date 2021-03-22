@@ -178,20 +178,21 @@ function interact_template_getHomeData(timeout = 0) {
           if (printDetail) console.log(JSON.stringify(data));;
           data = JSON.parse(data);
           
-          if (data.data.bizCode !== 0) {
-            console.log(data.data.bizMsg);
-            merge.jdBeans.fail++;
-            merge.jdBeans.notify = `${data.data.bizMsg}`;
-            return
-          }
+          // if (data.data.bizCode !== 0) {
+          //   console.log(data.data.bizMsg);
+          //   merge.jdBeans.fail++;
+          //   merge.jdBeans.notify = `${data.data.bizMsg}`;
+          //   return
+          // }
 
-
+          console.log(`4-----------------4`);
           for (let i = 0;i < data.data.taskInfos.length;i ++) {
             console.log("\n" + data.data.taskInfos[i].taskType + '-' + data.data.taskInfos[i].taskName  + '-' + (data.data.taskInfos[i].status === 1 ? `已完成${data.data.taskInfos[i].times}-未完成${data.data.taskInfos[i].maxTimes}` : "全部已完成"))
             
 
             if ([0,15].includes(data.data.taskInfos[i].taskType)) {
               if (data.data.taskInfos[i].status === 1) {
+                console.log(`5-----------------5`);
                 await harmony_collectScore(data.data.taskInfos[i].subTaskVOS[0].taskToken,data.data.taskInfos[i].taskType);
               }
               continue
@@ -212,7 +213,7 @@ function interact_template_getHomeData(timeout = 0) {
 
 //做任务
 function harmony_collectScore(taskToken,actionType,timeout = 0) {
-
+  console.log(`6-----------------6`);
   console.log(taskToken)
   console.log(actionType)
 
