@@ -17,7 +17,6 @@ let cookiesArr = [], cookie = '';
 const JD_API_HOST = `https://api.m.jd.com/client.action`;
 !(async () => {
 
-  console.log(`0-----------------0`);
   await requireConfig()
   if (!cookiesArr[0]) {
     $.msg($.name, '【提示】请先获取cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/', {"open-url": "https://bean.m.jd.com/"});
@@ -28,9 +27,9 @@ const JD_API_HOST = `https://api.m.jd.com/client.action`;
     cookie = cookiesArr[i];
     if (cookie) {
       if (i) console.log(`\n***************开始京东账号${i + 1}***************`)
-      console.log(`1-----------------1`);  
+ 
       initial();
-      console.log(`2-----------------2`);
+
       await  QueryJDUserInfo();
       if (!merge.enabled)  //cookie不可用
       {
@@ -47,7 +46,7 @@ const JD_API_HOST = `https://api.m.jd.com/client.action`;
         //lotteryResultFunPrefix = lotteryResultFunPrefixArr[j]||'interact_template'
         //browseTime = 6
         //if (parseInt(j)) console.log(`\n开始第${parseInt(j) + 1}个抽奖活动`)
-        console.log(`3-----------------3`);
+
         await interact_template_getHomeData();
         //break
       //}
@@ -185,23 +184,10 @@ function interact_template_getHomeData(timeout = 0) {
           //   return
           // }
 
-          console.log(`4-----------------4`);
+
           for (let i = 0;i < data.data.taskInfos.length;i ++) {
             console.log("\n" + data.data.taskInfos[i].taskType + '-' + data.data.taskInfos[i].taskName  + '-' + (data.data.taskInfos[i].status === 1 ? `已完成${data.data.taskInfos[i].times}-未完成${data.data.taskInfos[i].maxTimes}` : "全部已完成"))
-            
-            console.log(data.data.taskInfos[i].taskType);
-            console.log([0,15].includes(data.data.taskInfos[i].taskType));
 
-            // if ([0,15].includes(data.data.taskInfos[i].taskType)) {
-            //   console.log(`5-----------------5`);
-            //   if (data.data.taskInfos[i].status === 1) {
-                
-            //     await harmony_collectScore(data.data.taskInfos[i].subTaskVOS[0].taskToken,data.data.taskInfos[i].taskType);
-            //   }
-            //   continue
-            // }else {
-            //   console.log(`*******************`);
-            // }
             if (data.data.taskInfos[i].status === 1) {
                 await harmony_collectScore(data.data.taskInfos[i].subTaskVOS[0].taskToken,0);
             }
@@ -241,13 +227,14 @@ function harmony_collectScore(taskToken,actionType,timeout = 6000) {
         },
         body : `area=1_72_55663_0&body={"actionType":"${actionType}","taskToken":"${taskToken}","&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9%2C1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn%2BWJESU/2181NVn2bRzdsgHtdYHn%2Bb4xF6q%2B/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=11&screen=750%2A1334&sign=09fa3ca1626c1d8c067ea763f31c8268&st=1616330805127&sv=111&uts=0f31TVRjBSvniHyqoNcU8M4prYkXoXcvTEDPa1t1k5R8yhpaNubQznzqAY89TwN/VG/B2uJRTQOCbcXBb54PO8aNEItTozwD5gIHPHt/gFoat7lXUS/pQDp0fHySzxzx7Up5b9MQmrvJV%2B6%2B5eHWMMCLMBRNVpNaj4LhOfAAtFu48qGMFk791dt3SCtAlCCfYZtKm8B4fPIllSd/h839NA%3D%3D&uuid=hjudwgohxzVu96krv/T6Hg%3D%3D&wifiBssid=8b6538c87651072c4219343f91d578ed`
       }
-      //console.log(url.body)
-      //if (appId === "1EFRTxQ") url.body += "&appid=golden-egg"
+      console.log(url.body)
+
       $.post(url, async (err, resp, data) => {
         try {
           if (printDetail) console.log(data);
           data = JSON.parse(data);
-          console.log(data.data.bizMsg)
+          console.log(data.data)
+          // console.log(data.data.bizMsg)
           if (data.data.times < data.data.maxTimes) {
             await harmony_collectScore(taskToken,actionType,browseTime)
           }
