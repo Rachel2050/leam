@@ -229,11 +229,11 @@ function interact_template_getHomeData(timeout = 0) {
   })
 }
 
-function beanTaskList() {
+async function beanTaskList() {
   console.log("\n" + bodyArr.length)
   for (let i = 0;i < bodyArr.length;i ++) {
-
       await doTask(bodyArr[i])
+      await $.wait(6000)
   }
 }
 
