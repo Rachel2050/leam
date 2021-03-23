@@ -7,9 +7,8 @@ author：yangtingxiao
 github： https://github.com/yangtingxiao
  */
 const $ = new Env('领京豆');
-const printDetail = false;        //是否显示出参详情
-let merge = {}
 
+let isCookieEnabled = true
 
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '';
@@ -73,20 +72,20 @@ let bodyArr = [
 
 
             `area=1_72_55663_0&body={"actionType":0,"taskToken":"P225KkcRUoR9VXXIR30nfVfcwCjVVnoaY5jMMCGH82HVKk4I"}&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9,1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn+WJESU/2181NVn2bRzdsgHtdYHn+b4xF6q+/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=01&screen=750*1334&sign=799bdfcb85af6f8d74fbc9d2288669d2&st=1616501006805&sv=101&uts=0f31TVRjBStrZucTk+N6fiFwQEJWC3qU0UQlmJoUZOyGWEKx9E6sqyLWrZ1VrtarqgJ+yLbSRDYc34+rJWGp1b9+z0d20lsxLm20LbwTzE/MIy3rXDJ1f6Q5IT4zHWNpmaZE9nqBBBcVGQsERdsaBwVsFEonU0w7XPzWojhXnLzoo8k5vrSZx6vTg4IYCcm9U/9+Wiz49aU6ZrkqB98WwA==&uuid=hjudwgohxzVu96krv/T6Hg==&wifiBssid=d71cbd0cc92be6a2fc5294ff331efb3e`,
-           `area=1_72_55663_0&body={"actionType":0,"taskToken":"P225KkcRUoR9VXXIR30nfVfcwCjVVnoaY5jMMCGH82HVKk4Q"}&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9,1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn+WJESU/2181NVn2bRzdsgHtdYHn+b4xF6q+/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=01&screen=750*1334&sign=bba293a137988fbca77a4bfe387124d3&st=1616504731419&sv=122&uts=0f31TVRjBStrZucTk+N6fiFwQEJWC3qUPTJOGjtZaDUwC3uw0um9XIpQKQV5PJeR+twJnhhUyV8W2TsOeC0bJzlz3LN0zQz24OrqZoFPKl9UQ01UG8yt2O3fpP54mxHkyLgZj4W5DH7pfYDP4d9R+K14CWeaiBWFjC9MIwdrBgLUKRffw3UCMuIi51UJ2RoiVPb7yGe9q7LrR0OhlpaXpw==&uuid=hjudwgohxzVu96krv/T6Hg==&wifiBssid=d71cbd0cc92be6a2fc5294ff331efb3e`,
+            `area=1_72_55663_0&body={"actionType":0,"taskToken":"P225KkcRUoR9VXXIR30nfVfcwCjVVnoaY5jMMCGH82HVKk4Q"}&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9,1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn+WJESU/2181NVn2bRzdsgHtdYHn+b4xF6q+/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=01&screen=750*1334&sign=bba293a137988fbca77a4bfe387124d3&st=1616504731419&sv=122&uts=0f31TVRjBStrZucTk+N6fiFwQEJWC3qUPTJOGjtZaDUwC3uw0um9XIpQKQV5PJeR+twJnhhUyV8W2TsOeC0bJzlz3LN0zQz24OrqZoFPKl9UQ01UG8yt2O3fpP54mxHkyLgZj4W5DH7pfYDP4d9R+K14CWeaiBWFjC9MIwdrBgLUKRffw3UCMuIi51UJ2RoiVPb7yGe9q7LrR0OhlpaXpw==&uuid=hjudwgohxzVu96krv/T6Hg==&wifiBssid=d71cbd0cc92be6a2fc5294ff331efb3e`,
 
 
 
 
-           `area=1_72_55663_0&body={"actionType":0,"taskToken":"P225KkcRUoR9VXXIR30nfVfcwCjVVnoaZ5jQKCGH82H1IlC0"}&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9,1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn+WJESU/2181NVn2bRzdsgHtdYHn+b4xF6q+/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=01&screen=750*1334&sign=ebc1f5162d9226eb5947ab5d4bce8026&st=1616504760916&sv=110&uts=0f31TVRjBStrZucTk+N6fiFwQEJWC3qUPTJOGjtZaDUwC3uw0um9XIpQKQV5PJeR+twJnhhUyV8W2TsOeC0bJzlz3LN0zQz24OrqZoFPKl9UQ01UG8yt2O3fpP54mxHkyLgZj4W5DH7pfYDP4d9R+K14CWeaiBWFjC9MIwdrBgLUKRffw3UCMuIi51UJ2RoiVPb7yGe9q7LrR0OhlpaXpw==&uuid=hjudwgohxzVu96krv/T6Hg==&wifiBssid=d71cbd0cc92be6a2fc5294ff331efb3e`,
+            `area=1_72_55663_0&body={"actionType":0,"taskToken":"P225KkcRUoR9VXXIR30nfVfcwCjVVnoaZ5jQKCGH82H1IlC0"}&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9,1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn+WJESU/2181NVn2bRzdsgHtdYHn+b4xF6q+/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=01&screen=750*1334&sign=ebc1f5162d9226eb5947ab5d4bce8026&st=1616504760916&sv=110&uts=0f31TVRjBStrZucTk+N6fiFwQEJWC3qUPTJOGjtZaDUwC3uw0um9XIpQKQV5PJeR+twJnhhUyV8W2TsOeC0bJzlz3LN0zQz24OrqZoFPKl9UQ01UG8yt2O3fpP54mxHkyLgZj4W5DH7pfYDP4d9R+K14CWeaiBWFjC9MIwdrBgLUKRffw3UCMuIi51UJ2RoiVPb7yGe9q7LrR0OhlpaXpw==&uuid=hjudwgohxzVu96krv/T6Hg==&wifiBssid=d71cbd0cc92be6a2fc5294ff331efb3e`,
 
 
 
-           `area=1_72_55663_0&body={"actionType":0,"taskToken":"P225KkcRUoR9VXXIR30nfVfcwCjVVnoaRzR4JD2D52XlMnRp5"}&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9,1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn+WJESU/2181NVn2bRzdsgHtdYHn+b4xF6q+/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=01&screen=750*1334&sign=163dd22c9ffd774e930bbedd95bf6cf4&st=1616504823545&sv=120&uts=0f31TVRjBStrZucTk+N6fiFwQEJWC3qUPTJOGjtZaDUwC3uw0um9XIpQKQV5PJeR+twJnhhUyV8W2TsOeC0bJzlz3LN0zQz24OrqZoFPKl9UQ01UG8yt2O3fpP54mxHkyLgZj4W5DH7pfYDP4d9R+K14CWeaiBWFjC9MIwdrBgLUKRffw3UCMuIi51UJ2RoiVPb7yGe9q7LrR0OhlpaXpw==&uuid=hjudwgohxzVu96krv/T6Hg==&wifiBssid=d71cbd0cc92be6a2fc5294ff331efb3e`,
+            `area=1_72_55663_0&body={"actionType":0,"taskToken":"P225KkcRUoR9VXXIR30nfVfcwCjVVnoaRzR4JD2D52XlMnRp5"}&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9,1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn+WJESU/2181NVn2bRzdsgHtdYHn+b4xF6q+/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=01&screen=750*1334&sign=163dd22c9ffd774e930bbedd95bf6cf4&st=1616504823545&sv=120&uts=0f31TVRjBStrZucTk+N6fiFwQEJWC3qUPTJOGjtZaDUwC3uw0um9XIpQKQV5PJeR+twJnhhUyV8W2TsOeC0bJzlz3LN0zQz24OrqZoFPKl9UQ01UG8yt2O3fpP54mxHkyLgZj4W5DH7pfYDP4d9R+K14CWeaiBWFjC9MIwdrBgLUKRffw3UCMuIi51UJ2RoiVPb7yGe9q7LrR0OhlpaXpw==&uuid=hjudwgohxzVu96krv/T6Hg==&wifiBssid=d71cbd0cc92be6a2fc5294ff331efb3e`,
 
 
 
-           `area=1_72_55663_0&body={"actionType":0,"taskToken":"P225KkcRUoR9VXXIR30nfVfcwCjVVnoaRzB4JDWD52XlPnTY6"}&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9,1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn+WJESU/2181NVn2bRzdsgHtdYHn+b4xF6q+/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=01&screen=750*1334&sign=e64055735aafd921e4b5ded518786f3d&st=1616504854597&sv=121&uts=0f31TVRjBStrZucTk+N6fiFwQEJWC3qUPTJOGjtZaDUwC3uw0um9XIpQKQV5PJeR+twJnhhUyV8W2TsOeC0bJzlz3LN0zQz24OrqZoFPKl9UQ01UG8yt2O3fpP54mxHkyLgZj4W5DH7pfYDP4d9R+K14CWeaiBWFjC9MIwdrBgLUKRffw3UCMuIi51UJ2RoiVPb7yGe9q7LrR0OhlpaXpw==&uuid=hjudwgohxzVu96krv/T6Hg==&wifiBssid=d71cbd0cc92be6a2fc5294ff331efb3e`
+            `area=1_72_55663_0&body={"actionType":0,"taskToken":"P225KkcRUoR9VXXIR30nfVfcwCjVVnoaRzB4JDWD52XlPnTY6"}&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9,1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn+WJESU/2181NVn2bRzdsgHtdYHn+b4xF6q+/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=01&screen=750*1334&sign=e64055735aafd921e4b5ded518786f3d&st=1616504854597&sv=121&uts=0f31TVRjBStrZucTk+N6fiFwQEJWC3qUPTJOGjtZaDUwC3uw0um9XIpQKQV5PJeR+twJnhhUyV8W2TsOeC0bJzlz3LN0zQz24OrqZoFPKl9UQ01UG8yt2O3fpP54mxHkyLgZj4W5DH7pfYDP4d9R+K14CWeaiBWFjC9MIwdrBgLUKRffw3UCMuIi51UJ2RoiVPb7yGe9q7LrR0OhlpaXpw==&uuid=hjudwgohxzVu96krv/T6Hg==&wifiBssid=d71cbd0cc92be6a2fc5294ff331efb3e`
         ];
 
 
@@ -105,32 +104,15 @@ const JD_API_HOST = `https://api.m.jd.com/client.action`;
     cookie = cookiesArr[i];
     if (cookie) {
       if (i) console.log(`\n***************开始京东账号${i + 1}***************`)
- 
-      initial();
 
       await  QueryJDUserInfo();
-      if (!merge.enabled)  //cookie不可用
+      if (!isCookieEnabled)  //cookie不可用
       {
         $.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。
         $.msg($.name, `【提示】京东账号${i + 1} cookie已过期！请先获取cookie\n直接使用NobyDa的京东签到获取`, 'https://bean.m.jd.com/', {"open-url": "https://bean.m.jd.com/"});
         continue;
       }
-      //for (let j in appIdArr) {
-        //j = appIdArr.length - 1
-        //appId = appIdArr[j]
-        //shareCode = shareCodeArr[j]
-        //homeDataFunPrefix = homeDataFunPrefixArr[j]||'healthyDay'
-        //collectScoreFunPrefix = collectScoreFunPrefixArr[j]||'harmony'
-        //lotteryResultFunPrefix = lotteryResultFunPrefixArr[j]||'interact_template'
-
-        //if (parseInt(j)) console.log(`\n开始第${parseInt(j) + 1}个抽奖活动`)
-
-        await interact_template_getHomeData();
-        await doTask();
-        //break
-      //}
-      //await msgShow();
-      //break
+        await beanTaskList;
     }
   }
 })()
@@ -157,11 +139,10 @@ function QueryJDUserInfo(timeout = 0) {
           
           data = JSON.parse(data);
           if (data.retcode === 13) {
-            merge.enabled = false
+            isCookieEnabled = false
             return
           }
 
-          merge.nickname = data.base.nickname;
         } catch (e) {
           $.logErr(e, resp);
         } finally {
@@ -212,24 +193,6 @@ function jsonParse(str) {
   }
 }
 
-//初始化
-function initial() {
-   merge = {
-     nickname: "",
-     enabled: true,
-     redPacket: {prizeDesc : "抽得|红包|元",number : true,fixed : 2},  //定义 动作|奖励名称|奖励单位   是否是数字
-     jdBeans: {prizeDesc : "抽得|京豆|个",number : true,fixed : 0}
-  }
-  for (let i in merge) {
-    merge[i].success = 0;
-    merge[i].fail = 0;
-    merge[i].prizeCount = 0;
-    merge[i].notify = "";
-    merge[i].show = true;
-  }
-  merge.redPacket.show = false;
-}
-
 
 //获取活动信息
 function interact_template_getHomeData(timeout = 0) {
@@ -253,24 +216,8 @@ function interact_template_getHomeData(timeout = 0) {
 
       $.post(url, async (err, resp, data) => {
         try {
-          if (printDetail) console.log(JSON.stringify(data));;
+          //console.log(JSON.stringify(data));;
           data = JSON.parse(data);
-          
-          // if (data.data.bizCode !== 0) {
-          //   console.log(data.data.bizMsg);
-          //   merge.jdBeans.fail++;
-          //   merge.jdBeans.notify = `${data.data.bizMsg}`;
-          //   return
-          // }
-
-
-          for (let i = 0;i < data.data.taskInfos.length;i ++) {
-            console.log("\n" + data.data.taskInfos[i].taskType + '-' + data.data.taskInfos[i].taskName  + '-' + (data.data.taskInfos[i].status === 1 ? `已完成${data.data.taskInfos[i].times}-未完成${data.data.taskInfos[i].maxTimes}` : "全部已完成"))
-
-            if (data.data.taskInfos[i].status === 1) {
-                await harmony_collectScore(data.data.taskInfos[i].subTaskVOS[0].taskToken,0);
-            }
-          }
           
         } catch (e) {
           $.logErr(e, resp);
@@ -282,19 +229,19 @@ function interact_template_getHomeData(timeout = 0) {
   })
 }
 
-function doTask() {
+function beanTaskList() {
   console.log("\n" + bodyArr.length)
   for (let i = 0;i < bodyArr.length;i ++) {
-      console.log("\n" + bodyArr[i])
+
+      await beanDoTask(bodyArr[i])
   }
 }
 
 //做任务
-function harmony_collectScore(taskToken,actionType,timeout = 6000) {
- 
-  console.log(taskToken)
+function beanDoTask(body,timeout = 6000) {
+  console.log("\n" + body)
 
-
+  return
   return new Promise((resolve) => {
     setTimeout( ()=>{
       let url = {
@@ -311,21 +258,19 @@ function harmony_collectScore(taskToken,actionType,timeout = 6000) {
           "Accept-Language": "zh-Hans-US;q=1, en-US;q=0.9, zh-Hant-US;q=0.8",
           "User-Agent": `JD4iPhone/167568 (iPhone; iOS 12.1.2; Scale/2.00)`
         },
-        // body : `body={"actionType":"${actionType}","taskToken":"${taskToken}"}&client=wh5&clientVersion=1.0.0`
-        body : `area=1_72_55663_0&body={"actionType":0,"taskToken":"${taskToken}"}&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9,1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn+WJESU/2181NVn2bRzdsgHtdYHn+b4xF6q+/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=11&screen=750*1334&sign=d4f4ffe8e922db8a813a1152e0a59997&st=1616403027731&sv=100&uts=0f31TVRjBSvniHyqoNcU8M4prYkXoXcvgh6PMDKM078C40+lbb50LeER7BWix8wBgqH0AV5Og2Fmb271I/IwgjnL31YYFSRr1FWQadj9d6GpPvAmT9GUxuCayDIFYdufkBUoUMBdnmcAeSC0leJUBkIY4rP9k8UsXPnveCj3XolGtR8dDJ5D7HXLnIia7ls9bbPb2vsAixoxG/HdwEt9GQ==&uuid=hjudwgohxzVu96krv/T6Hg==&wifiBssid=8b6538c87651072c4219343f91d578ed`
+
+        body : ${body}
+        //`area=1_72_55663_0&body={"actionType":0,"taskToken":"${taskToken}"}&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9,1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn+WJESU/2181NVn2bRzdsgHtdYHn+b4xF6q+/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=11&screen=750*1334&sign=d4f4ffe8e922db8a813a1152e0a59997&st=1616403027731&sv=100&uts=0f31TVRjBSvniHyqoNcU8M4prYkXoXcvgh6PMDKM078C40+lbb50LeER7BWix8wBgqH0AV5Og2Fmb271I/IwgjnL31YYFSRr1FWQadj9d6GpPvAmT9GUxuCayDIFYdufkBUoUMBdnmcAeSC0leJUBkIY4rP9k8UsXPnveCj3XolGtR8dDJ5D7HXLnIia7ls9bbPb2vsAixoxG/HdwEt9GQ==&uuid=hjudwgohxzVu96krv/T6Hg==&wifiBssid=8b6538c87651072c4219343f91d578ed`
       }
-      //console.log(url.body)
+
 
       $.post(url, async (err, resp, data) => {
         try {
-          if (printDetail) console.log(data);
+
           console.log(JSON.stringify(data));;
-          data = JSON.parse(data);
-          // console.log(data.data)
-          // console.log(data.data.bizMsg)
-          // if (data.data.times < data.data.maxTimes) {
-          //   await harmony_collectScore(taskToken,actionType,browseTime)
-          // }
+          //data = JSON.parse(data);
+
+
         } catch (e) {
           $.logErr(e, resp);
         } finally {
