@@ -112,7 +112,7 @@ const JD_API_HOST = `https://api.m.jd.com/client.action`;
         $.msg($.name, `【提示】京东账号${i + 1} cookie已过期！请先获取cookie\n直接使用NobyDa的京东签到获取`, 'https://bean.m.jd.com/', {"open-url": "https://bean.m.jd.com/"});
         continue;
       }
-        await beanTaskList;
+        await beanTaskList()
     }
   }
 })()
@@ -233,12 +233,12 @@ function beanTaskList() {
   console.log("\n" + bodyArr.length)
   for (let i = 0;i < bodyArr.length;i ++) {
 
-      await beanDoTask(bodyArr[i])
+      await doTask(bodyArr[i])
   }
 }
 
 //做任务
-function beanDoTask(body,timeout = 6000) {
+function doTask(body) {
   console.log("\n" + body)
 
   return
