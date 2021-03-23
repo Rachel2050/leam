@@ -233,15 +233,17 @@ async function beanTaskList() {
   console.log("\n" + bodyArr.length)
   for (let i = 0;i < bodyArr.length;i ++) {
       await doTask(bodyArr[i])
-      await $.wait(6000)
+      if (3 < i < 9  || 14 < i < 34) {
+            await $.wait(6000)
+      }
+      
   }
 }
 
 //做任务
-function doTask(body) {
+function doTask(body,timeout=100) {
   console.log("\n" + body)
 
-  return
   return new Promise((resolve) => {
     setTimeout( ()=>{
       let url = {
@@ -259,7 +261,7 @@ function doTask(body) {
           "User-Agent": `JD4iPhone/167568 (iPhone; iOS 12.1.2; Scale/2.00)`
         },
 
-        body : ${body}
+        body : body
         //`area=1_72_55663_0&body={"actionType":0,"taskToken":"${taskToken}"}&build=167568&client=apple&clientVersion=9.4.2&d_brand=apple&d_model=iPhone9,1&eid=eidIccf18121bas4HscOJ8UbQIKkaOkt7Bogux7HD5F6fWT/WfjJakYUXDmnQYfYRxQn+WJESU/2181NVn2bRzdsgHtdYHn+b4xF6q+/XIU7MkBIrpky&isBackground=N&joycious=80&lang=zh_CN&networkType=wifi&networklibtype=JDNetworkBaseAF&openudid=b27e1d9e1268dffdc85e792c55c9d3fe6d3fffb7&osVersion=12.1.2&partner=apple&rfs=0000&scope=11&screen=750*1334&sign=d4f4ffe8e922db8a813a1152e0a59997&st=1616403027731&sv=100&uts=0f31TVRjBSvniHyqoNcU8M4prYkXoXcvgh6PMDKM078C40+lbb50LeER7BWix8wBgqH0AV5Og2Fmb271I/IwgjnL31YYFSRr1FWQadj9d6GpPvAmT9GUxuCayDIFYdufkBUoUMBdnmcAeSC0leJUBkIY4rP9k8UsXPnveCj3XolGtR8dDJ5D7HXLnIia7ls9bbPb2vsAixoxG/HdwEt9GQ==&uuid=hjudwgohxzVu96krv/T6Hg==&wifiBssid=8b6538c87651072c4219343f91d578ed`
       }
 
